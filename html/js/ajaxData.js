@@ -10,7 +10,7 @@ emailInput.onkeyup = function (e) {
         {
             $.ajax({
             type: "post",
-            url: "index.php/AddManager/control",
+            url: "http://kludrive.herokuapp.com/index.php/AddManager/control",
             cache: false,    
             data: {mailAdress: mail},
             success: function(data){   
