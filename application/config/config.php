@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://kludrive.herokuapp.com/';
-$config['base_file'] = 'http://kludrive.herokuapp.com/data\\';
+$config['base_file'] = $_SERVER["DOCUMENT_ROOT"]."/kludrive/data/";
 $config['title'] = 'KLU DRIVE';
 /*
 |--------------------------------------------------------------------------
