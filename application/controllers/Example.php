@@ -5,7 +5,7 @@ class Example extends CI_Controller
 {
     public function index()
     {
-       $bellek = $this->config->item('base_file')."personal";
+       $bellek = $this->checkDiskFull();
        echo $bellek;
     }
 
