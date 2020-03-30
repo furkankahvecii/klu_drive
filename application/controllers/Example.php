@@ -5,7 +5,7 @@ class Example extends CI_Controller
 {
     public function index()
     {
-       echo $_SERVER["PHP_SELF"];
+       echo $this->config->item('base_file')."personal";
     }
 
    
