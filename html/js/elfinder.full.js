@@ -22193,7 +22193,7 @@ elFinder.prototype.commands.share = function() {
 		
 		$.ajax({
 			type: "post",
-			url: "http://localhost/klu_drive_web/index.php/ShareFolder/ShareFakBol",
+			url: "http://kludrive.herokuapp.com/ShareFolder/ShareFakBol",
 			cache: false,
 			data: { 
 			 },
@@ -22248,7 +22248,7 @@ elFinder.prototype.commands.share = function() {
 
 				$.ajax({
 					type: "post",
-					url: "http://localhost/klu_drive_web/index.php/ShareFolder/ShareFakBolSinif",
+					url: "http://kludrive.herokuapp.com/ShareFolder/ShareFakBolSinif",
 					cache: false,
 					data: {  
 						selectedFolder: '` + fileName +`',
