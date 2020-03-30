@@ -16,21 +16,21 @@ class AddManager extends CI_Controller
         );
 
  
-        if($email == "esguner@klu.edu.tr")
+        if($email == "furkankahveci@klu.edu.tr")
         {
             $status = array(
                 "STATUS" => "true",
-                "NAME"     => "EDİP SERDAR",
-                "SURNAME" => "GÜNER",
-                "UNVAN"     => "Dr. Öğr. Üyesi",
+                "NAME"     => "FURKAN",
+                "SURNAME" => "KAHVECİ",
+                "UNVAN"     => "Ögrenci",
                 "AKTIF" => "Aktif",
-                "PERSONEL_TIP" => "Üniversite Personeli",
+                "OGRENCI_TIP" => "Birinci Öğretim",
                 "BRANS" => "Yazılım",
                 "EPOSTA" => "EPOSTA",
                 "GSM1"     => "GSM1",
                 "FAK_AD" => "MÜHENDİSLİK FAKÜLTESİ",
-                "BOL_AD" => "ELEKTRİK-ELEKTRONİK MÜHENDİSLİĞİ",
-                "PROG_AD"     => "ELEKTRİK-ELEKTRONİK MÜHENDİSLİĞİ"
+                "BOL_AD" => "YAZILIM MÜHENDİSLİĞİ",
+                "PROG_AD"     => "YAZILIM MÜHENDİSLİĞİ"
             );
         }
         
