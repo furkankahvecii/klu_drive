@@ -240,6 +240,52 @@ class CI_DB_mysqli_driver extends CI_DB {
 	}
 
 	// --------------------------------------------------------------------
+	/**
+	* ON DUPLICATE UPDATE statement
+	*
+	* Generates a platform-specific on duplicate key update string from the supplied data
+	*
+	* @author Jeric T <jeric@badjoerichards.com> based off (Chris Miller <chrismill03@hotmail.com>)
+	* @since 3.0.0
+	* @access public
+	* @param string the table name
+	* @param array the update/insert data
+	* @return string
+	*/
+	public function _duplicate_insert($table, $values){
+		$updatestr = array();
+		$keystr = array();
+		$valstr = array();
+		
+		foreach($values as $key => $val){
+			$updatestr[] = $key." = ".$val;
+			$keystr[] = $key;
+			$valstr[] = $val;
+		}
+		
+		$sql = "INSERT INTO ".$this->_escape_str($table)." (".implode(', ',$keystr).") ";
+		$sql .= "VALUES (".implode(', ',$valstr).") ";
+		$sql .= "ON DUPLICATE KEY UPDATE ".implode(', ',$updatestr);
+		
+		return $sql;
+	}
+
+	/**
+	 * Replace batch statement
+	 *
+	 * Generates a platform-specific insert string from the supplied data.
+	 *
+	 * @param   string  $table  Table name
+	 * @param   array   $keys   INSERT keys
+	 * @param   array   $values INSERT values
+	 * @return  string
+	 */
+	protected function _replace_batch($table, $keys, $values)
+	{
+		return 'REPLACE INTO '.$table.' ('.implode(', ', $keys).') VALUES '.implode(', ', $values);
+	}
+	
+	// --------------------------------------------------------------------
 
 	/**
 	 * Select the database
