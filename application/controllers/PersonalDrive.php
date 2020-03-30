@@ -100,7 +100,7 @@ class PersonalDrive extends CI_Controller
         'roots' => array(
                 array( 
                     'driver'        => 'LocalFileSystem',
-                    'path'          => $this->config->item('base_file').'personal',
+                    'path'          => $this->config->item('base_file')."personal",
                     'URL'           => base_url(),
                     'trashHash'       => 't1_Lw',
                     'uploadMaxSize' => $bellek,
@@ -114,8 +114,8 @@ class PersonalDrive extends CI_Controller
                 array(
                     'id'            => '1',
                     'driver'        => 'Trash',
-                    'path'          => $this->config->item('base_file')."user/.trash",
-                    'tmbURL'        => $this->config->item('base_file')."user/.trash/.tmb",
+                    'path'          => $this->config->item('base_file')."personal/.trash",
+                    'tmbURL'        => $this->config->item('base_file')."personal/.trash/.tmb",
                     'winHashFix'    => DIRECTORY_SEPARATOR !== '/', // to make hash same to Linux one on windows too
                     'uploadDeny'    => array('text/x-php'),                // Recomend the same settings as the original volume that uses the trash
                     'uploadAllow'   => array('all'), // Same as above
@@ -182,7 +182,7 @@ class PersonalDrive extends CI_Controller
 
     public function DriveKontrol()
     {
-        $kalan = number_format(500 - $_SESSION['FOLDER_SIZE_MB'], 2, '.', '');
+        $kalan = number_format($_SESSION['UPLOAD_MAX_SIZE'] - $_SESSION['FOLDER_SIZE_MB'], 2, '.', '');
         $status['kalan_limit'] =$kalan < 0 ? 0 : $kalan;
         echo json_encode($status);
     }
