@@ -12,19 +12,36 @@ class PersonalDrive extends CI_Controller
         $this->load->view('personal/personal_v',$data);
     }
 
-    public function folderSize($dir)
-    {
-        $size = 0;
-		foreach (glob(rtrim($dir, '/').'/{,.}*', GLOB_MARK|GLOB_BRACE) as $each) {
-			if(substr($each, -3) == '..\\' || substr($each, -2) == '.\\')
-				continue;
-			$size += is_file($each) ? filesize($each) : $this->folderSize($each);
-		}
-		return $size;
+    // public function folderSize($dir)
+    // {
+    //     $size = 0;
+	// 	foreach (glob(rtrim($dir, '/').'/{,.}*', GLOB_MARK|GLOB_BRACE) as $each) {
+	// 		if(substr($each, -3) == '..\\' || substr($each, -2) == '.\\')
+	// 			continue;
+	// 		$size += is_file($each) ? filesize($each) : $this->folderSize($each);
+	// 	}
+	// 	return $size;
+    // }
+
+    
+    function getFolderSize($directory){
+        $totalSize = 0;
+        $directoryArray = scandir($directory);
+
+        foreach($directoryArray as $key => $fileName){
+            if($fileName != ".." && $fileName != "."){
+                if(is_dir($directory . "/" . $fileName)){
+                    $totalSize = $totalSize + $this->getFolderSize($directory . "/" . $fileName);
+                } else if(is_file($directory . "/". $fileName)){
+                    $totalSize = $totalSize + filesize($directory. "/". $fileName);
+                }
+            }
+        }
+        return $totalSize;
     }
 
     public function checkDiskFull(){
-        $_SESSION['FOLDER_SIZE_BYTE'] = $this->folderSize($this->config->item('base_file')."personal");
+        $_SESSION['FOLDER_SIZE_BYTE'] = $this->getFolderSize($this->config->item('base_file')."personal");
         $folderByte = number_format($_SESSION['FOLDER_SIZE_BYTE'] / pow(2,20), 2);
         $_SESSION['FOLDER_SIZE_MB'] = $folderByte;
 
