@@ -15,7 +15,7 @@ class OgrenciDrive extends CI_Controller
         array_push($opts['roots'],
             array (
                 'driver'        => 'LocalFileSystem',
-                'path'          => "http://kludrive.herokuapp.com/data\personal",
+                'path'          => BASEPATH . 'data/personal';
                 'URL'           => base_url(), 
                 'uploadMaxSize' => '1KB', 
                 'uploadDeny'    => array('all'),   
