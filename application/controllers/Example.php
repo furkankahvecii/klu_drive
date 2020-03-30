@@ -10,7 +10,16 @@ class Example extends CI_Controller
     }
 
 
-    
+    public function folderSize($dir)
+    {
+        $size = 0;
+		foreach (glob(rtrim($dir, '/').'/{,.}*', GLOB_MARK|GLOB_BRACE) as $each) {
+			if(substr($each, -3) == '..\\' || substr($each, -2) == '.\\')
+				continue;
+			$size += is_file($each) ? filesize($each) : $this->folderSize($each);
+		}
+		return $size;
+    }
 
     public function checkDiskFull(){
         $_SESSION['FOLDER_SIZE_BYTE'] = $this->folderSize($this->config->item('base_file')."personal");
