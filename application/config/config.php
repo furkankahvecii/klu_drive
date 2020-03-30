@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/klu_drive_web';
-$config['base_file'] = 'C:\xampp\htdocs\klu_drive_web\data\\';
+$config['base_url'] = 'http://kludrive.herokuapp.com/';
+$config['base_file'] = 'http://kludrive.herokuapp.com/data\\';
 $config['title'] = 'KLU DRIVE';
 /*
 |--------------------------------------------------------------------------
