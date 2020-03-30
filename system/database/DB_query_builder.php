@@ -360,6 +360,94 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 		return $this->_max_min_avg_sum($select, $alias, 'AVG');
 	}
 
+	public function replace_batch($table, $set = NULL, $escape = NULL, $batch_size = 100)
+	{
+		if ($set === NULL)
+		{
+			if (empty($this->qb_set))
+			{
+				return ($this->db_debug) ? $this->display_error('db_must_use_set') : FALSE;
+			}
+		}
+		else
+		{
+			if (empty($set))
+			{
+				return ($this->db_debug) ? $this->display_error('replace_batch() called with no data') : FALSE;
+			}
+
+			$this->set_insert_batch($set, '', $escape);
+		}
+
+		if (strlen($table) === 0)
+		{
+			if ( ! isset($this->qb_from[0]))
+			{
+				return ($this->db_debug) ? $this->display_error('db_must_set_table') : FALSE;
+			}
+
+			$table = $this->qb_from[0];
+		}
+
+		// Batch this baby
+		$affected_rows = 0;
+		for ($i = 0, $total = count($this->qb_set); $i < $total; $i += $batch_size)
+		{
+			if ($this->query($this->_replace_batch($this->protect_identifiers($table, TRUE, $escape, FALSE), $this->qb_keys, array_slice($this->qb_set, $i, $batch_size))))
+			{
+				$affected_rows += $this->affected_rows();
+			}
+		}
+
+		$this->_reset_write();
+		return $affected_rows;
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	* On Duplicate Key Update
+	*
+	* Compiles an on duplicate key update string and runs the query
+	* 
+	* @author Jeric T <jeric@badjoerichards.com> based off (Chris Miller <chrismill03@hotmail.com>)
+	* @since 3.0.0
+	* @access public
+	* @param string the table to retrieve the results from
+	* @param array an associative array of update value
+	* @return object
+	*/
+	
+	public function on_duplicate($table = '', $set = NULL )
+	{
+		if ( ! is_null($set)){
+			$this->set($set);
+		}
+		
+		if (count($this->qb_set) == 0){
+			if ($this->db_debug){
+				return $this->display_error('db_must_use_set');
+			}
+			return FALSE;
+		}
+		
+		if ($table == ''){
+			if ( ! isset($this->qb_from[0])){
+				if ($this->db_debug){
+					return $this->display_error('db_must_set_table');
+				}
+				return FALSE;
+			}
+			$table = $this->qb_from[0];
+		}
+		
+		$sql = $this->_duplicate_insert($this->protect_identifiers($table), $this->qb_set );
+		
+		$this->_reset_write();
+		return $this->query($sql);
+	}
+	
+	// --------------------------------------------------------------------
 	// --------------------------------------------------------------------
 
 	/**
