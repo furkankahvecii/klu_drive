@@ -22259,7 +22259,7 @@ elFinder.prototype.commands.share = function() {
 						var obj = jQuery.parseJSON(data);  
 						if(obj['STATUS'] == "true")
 						{
-							alert('Dosyanız başarılı bir şekilde paylaşıldı.');
+							alert('Your file has been successfully shared with students.');
 						}
 					},
 					error: function(result) {
