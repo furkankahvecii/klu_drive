@@ -81,7 +81,7 @@
                     if($('.elfinder-stat-size').find('.kalan_limit').length>0) { $('.elfinder-stat-size').find('.kalan_limit').remove(); }
                     var nokta=$('.elfinder-stat-size').find('span.elfinder-stat-size').last();
                     var bilgi=nokta.html();
-                    nokta.html(bilgi+'<span class="kalan_limit">, Kalan Disk Alanı: '+ $limit +' MB</span>');
+                    nokta.html(bilgi+'<span class="kalan_limit">, Remaining Disk Space: '+ $limit +' MB</span>');
                 };
                     /* any bind functions etc. */
                     <?php if(($_SESSION['ROL'] == 1)){ ?>
