@@ -56,7 +56,7 @@
             defaultOpts : {
                 url : '<?php echo $connector ?>' // connector URL (REQUIRED)
                 ,cssAutoLoad : ["<?php echo base_url(); ?>html/themes/moono/css/theme.min.css"]
-                ,lang : 'tr', // connector URL (REQUIRED)
+                ,lang : 'en', // connector URL (REQUIRED)
                 commandsOptions : {
                     edit : {
                         extraOptions : {
